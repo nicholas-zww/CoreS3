@@ -1,4 +1,5 @@
 #include "HomeMenu.h"
+#include <sstream>
 
 using namespace Page;
 
@@ -61,6 +62,13 @@ void HomeMenu::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void HomeMenu::Update() {
+    std::stringstream t;
+    t << M5.Power.getBatteryLevel() << "%";
+    if (M5.Power.isCharging() == m5::Power_Class::is_charging_t::is_charging)
+        t << ", " << "Charging";
+    else
+        t << ", " << "Discharging";
+    lv_label_set_text(View.ui.battery, t.str().c_str());
 }
 
 void HomeMenu::onTimerUpdate(lv_timer_t* timer) {

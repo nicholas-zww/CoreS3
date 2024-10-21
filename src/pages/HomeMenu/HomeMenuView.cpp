@@ -56,7 +56,7 @@ static const lv_img_dsc_t* menu_img_pressed_list[] = {
 void HomeMenuView::Create(lv_obj_t* root) {
 #if defined(M5CORES3)
     ui.img_bg = lv_img_create(root);
-    lv_img_set_src(ui.img_bg, ResourcePool::GetImage("menu_bg"));
+    lv_img_set_src(ui.img_bg, ResourcePool::GetImage("background"));
 #elif defined(M5CORES3SE)
     ui.img_bg_se = lv_img_create(root);
     lv_img_set_src(ui.img_bg_se, ResourcePool::GetImage("menu_bg_se"));
@@ -93,6 +93,9 @@ void HomeMenuView::Create(lv_obj_t* root) {
     // lv_obj_set_style_border_width(ui.imgbtn_list[8], 1, 0);
     // lv_obj_set_style_radius(ui.imgbtn_list[8], 0, 0);
     // lv_obj_set_style_border_post(ui.imgbtn_list[8], true, 0);
+    ui.battery = lv_label_create(root);
+    lv_label_set_text(ui.battery, "Battery...");
+    lv_obj_align(ui.battery, LV_ALIGN_OUT_LEFT_MID, 10, 10);
 }
 
 void HomeMenuView::Delete() {

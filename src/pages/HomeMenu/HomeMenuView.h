@@ -17,7 +17,7 @@ class HomeMenuView {
     #elif defined(M5CORES3SE)
         lv_obj_t* img_bg_se;
     #endif
-        
+        lv_obj_t* battery;
         lv_obj_t* imgbtn_list[9];
     } ui;
 
