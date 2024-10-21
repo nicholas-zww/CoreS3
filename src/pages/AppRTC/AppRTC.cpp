@@ -38,8 +38,8 @@ void AppRTC::onViewDidAppear() {
 
 void AppRTC::onViewWillDisappear() {
     LV_LOG_USER(__func__);
-    M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u,
-                       1, 1);
+    // M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u,
+    //                    1, 1);
 }
 
 void AppRTC::onViewDidDisappear() {
@@ -85,8 +85,8 @@ void AppRTC::onEvent(lv_event_t* event) {
             instance->_Manager->Replace("Pages/HomeMenu");
             return;
         }
-        M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"),
-                           ~0u, 1, 1);
+        // M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"),
+        //                    ~0u, 1, 1);
         if (obj == instance->View.ui.btn_list[0]) {
 #if MONKEY_TEST_ENABLE
             // ...

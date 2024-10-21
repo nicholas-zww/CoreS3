@@ -26,8 +26,8 @@ void StartUp::onViewDidLoad() {
 void StartUp::onViewWillAppear() {
     LV_LOG_USER(__func__);
 
-    M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("poweron_2_5s"),
-                       ~0u, 1, 1);
+    // M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("poweron_2_5s"),
+    //                    ~0u, 1, 1);
 
     timer = lv_timer_create(onTimerUpdate, 50, this);
     lv_anim_timeline_start(View.ui.anim_timeline);
@@ -105,8 +105,8 @@ void StartUp::onEvent(lv_event_t* event) {
 #else
         } else if (code == LV_EVENT_CLICKED) {
 #endif
-            M5.Speaker.playWav(
-                (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+            // M5.Speaker.playWav(
+            //     (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
             instance->_Manager->Replace("Pages/HomeMenu");
         }
     }

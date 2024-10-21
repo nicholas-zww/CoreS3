@@ -83,8 +83,8 @@ void HomeMenu::onEvent(lv_event_t* event) {
             return;
         }
         USBSerial.print("HomeMenu -> ");
-        M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"),
-                           ~0u, 1, 1);
+        // M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"),
+        //                    ~0u, 1, 1);
         if (obj == instance->View.ui.imgbtn_list[0]) {
             USBSerial.println("AppWiFi");
             instance->_Manager->Replace("Pages/AppWiFi");

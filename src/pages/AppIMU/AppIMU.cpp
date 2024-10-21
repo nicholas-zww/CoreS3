@@ -138,8 +138,8 @@ void AppIMU::onEvent(lv_event_t* event) {
                 instance->calibration_flag = true;
                 return;
             }
-            M5.Speaker.playWav(
-                (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+            // M5.Speaker.playWav(
+            //     (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
             if (obj == instance->View.ui.imgbtn_home) {
                 instance->_Manager->Replace("Pages/HomeMenu");
             } else if (obj == instance->View.ui.imgbtn_next) {
