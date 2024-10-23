@@ -1,3 +1,4 @@
+#if defined(ARDUINO)
 #include <Arduino.h>
 #include <FFat.h>
 #include <Wire.h>
@@ -7,13 +8,26 @@
 #include "config.h"
 #include "M5GFX.h"
 #include "M5Unified.h"
-#include "lvgl.h"
-#include "m5gfx_lvgl.h"
 #include "esp_camera.h"
+#endif
 
+#include "lvgl.h"
+#if defined(ARDUINO)
+#include "m5gfx_lvgl.h"
+#else
+#include "lvgl_port_m5stack.hpp"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#endif
 #include "App.h"
 
+#if !defined(ARDUINO)
+M5GFX gfx;
+#endif
+
 void setup() {
+#if defined(ARDUINO)
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||
         ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -45,12 +59,19 @@ void setup() {
 
     lv_init();
     m5gfx_lvgl_init();
+#else
+    gfx.init();
 
+    lvgl_port_init(gfx);
+#endif
     App_Init();
 }
 
 void loop() {
-
+#if defined(ARDUINO)
     lv_timer_handler();
     delay(10);
+#else
+    usleep(10 * 000);
+#endif
 }

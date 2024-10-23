@@ -52,21 +52,11 @@ void App_Init() {
     ResourcePool::Init();
 
     /* Initialize pages */
-    manager.Install("StartUp", "Pages/StartUp");
-    manager.Install("HomeMenu", "Pages/HomeMenu");
-    manager.Install("AppWiFi", "Pages/AppWiFi");
-    manager.Install("AppCamera", "Pages/AppCamera");
-    manager.Install("AppMic", "Pages/AppMic");
-    manager.Install("AppPower", "Pages/AppPower");
-    manager.Install("AppIMU", "Pages/AppIMU");
-    manager.Install("AppSD", "Pages/AppSD");
-    manager.Install("AppTouch", "Pages/AppTouch");
-    manager.Install("AppI2C", "Pages/AppI2C");
-    manager.Install("AppRTC", "Pages/AppRTC");
+    manager.Install("Template", "Pages/Template");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_NONE);
 
-    manager.Push("Pages/StartUp");
+    manager.Push("Pages/Template");
 }
 
 void App_Uninit() {

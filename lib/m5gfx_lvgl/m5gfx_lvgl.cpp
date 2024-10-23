@@ -1,6 +1,7 @@
 
 #include "m5gfx_lvgl.h"
 
+#if defined(ARDUINO)
 SemaphoreHandle_t xGuiSemaphore;
 static lv_disp_draw_buf_t draw_buf;
 
@@ -85,3 +86,4 @@ void m5gfx_lvgl_init(void) {
     ESP_ERROR_CHECK(
         esp_timer_start_periodic(periodic_timer, LV_TICK_PERIOD_MS * 1000));
 }
+#endif

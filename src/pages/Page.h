@@ -23,13 +23,16 @@
 #ifndef __PAGE_H
 #define __PAGE_H
 
+#if defined(ARDUINO) 
 #include <Arduino.h>
 #include <Wire.h>
 #include "esp_camera.h"
 #include "M5Unified.h"
 #include "M5GFX.h"
-#include "lvgl.h"
 #include "config.h"
+#endif
+
+#include "lvgl.h"
 
 #include "PageManager.h"
 #include "lv_obj_ext_func.h"

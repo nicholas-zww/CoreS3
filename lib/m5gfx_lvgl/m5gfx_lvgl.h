@@ -2,9 +2,10 @@
 #define __M5GFX_LVGL_H__
 
 #include "lvgl.h"
+#if defined(ARDUINO)
 #include "M5Unified.h"
 #include "M5GFX.h"
 
 void m5gfx_lvgl_init(void);
-
+#endif
 #endif  // __M5GFX_LVGL_H__
