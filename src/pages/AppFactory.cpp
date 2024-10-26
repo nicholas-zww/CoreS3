@@ -21,6 +21,8 @@
  * SOFTWARE.
  */
 #include "AppFactory.h"
+#include "StartUp/StartUp.h"
+#include "HomeMenu/HomeMenu.h"
 #include "Template/Template.h"
 
 #define APP_CLASS_MATCH(className)           \
@@ -31,7 +33,8 @@
     } while (0)
 
 PageBase* AppFactory::CreatePage(const char* name) {
-    APP_CLASS_MATCH(Template);
+    APP_CLASS_MATCH(StartUp);
+    APP_CLASS_MATCH(HomeMenu);
 
     return nullptr;
 }

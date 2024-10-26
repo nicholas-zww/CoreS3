@@ -52,11 +52,15 @@ void App_Init() {
     ResourcePool::Init();
 
     /* Initialize pages */
-    manager.Install("Template", "Pages/Template");
+    manager.Install("StartUp", "Pages/StartUp");
+    manager.Install("HomeMenu", "Pages/HomeMenu");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_NONE);
-
-    manager.Push("Pages/Template");
+#if defined(ARDUINO)
+    manager.Push("Pages/StartUp");
+#else
+    manager.Push("Pages/HomeMenu");
+#endif
 }
 
 void App_Uninit() {
