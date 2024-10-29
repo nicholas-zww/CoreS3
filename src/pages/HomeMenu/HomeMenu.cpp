@@ -97,8 +97,6 @@ void HomeMenu::onEvent(lv_event_t* event) {
         }else if (obj == instance->View.ui.imgbtn_list[4]) {
             instance->_Manager->Replace("Pages/AppIMU");
         }  
-
-        
         else if (obj == instance->View.ui.imgbtn_list[3]) {
             instance->_Manager->Replace("Pages/AppPower");
         } else if (obj == instance->View.ui.imgbtn_list[5]) {

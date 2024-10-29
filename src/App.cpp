@@ -12,23 +12,6 @@ void App_Init() {
         lv_group_set_default(group);
     }
 
-#if MONKEY_TEST_ENABLE
-    lv_monkey_config_t config;
-    lv_monkey_config_init(&config);
-    config.type = LV_INDEV_TYPE_POINTER;
-    config.period_range.min = 20;
-    config.period_range.max = 50;
-    config.input_range.min = 0;
-    config.input_range.max = 320;
-    lv_monkey_t* monkey = lv_monkey_create(&config);
-    lv_monkey_set_enable(monkey, true);
-
-    lv_group_t* group = lv_group_create();
-    lv_indev_set_group(lv_monkey_get_indev(monkey), group);
-    lv_group_set_default(group);
-
-    LV_LOG_USER("lv_monkey test started!");
-#endif
     /* Set screen style */
     lv_obj_t* scr = lv_scr_act();
     lv_obj_remove_style_all(scr);
@@ -52,12 +35,21 @@ void App_Init() {
     ResourcePool::Init();
 
     /* Initialize pages */
-    manager.Install("StartUp", "Pages/StartUp");
+    // manager.Install("StartUp", "Pages/StartUp");
     manager.Install("HomeMenu", "Pages/HomeMenu");
+    manager.Install("AppWiFi", "Pages/AppWiFi");
+    manager.Install("AppCamera", "Pages/AppCamera");
+    manager.Install("AppMic", "Pages/AppMic");
+    manager.Install("AppPower", "Pages/AppPower");
+    manager.Install("AppIMU", "Pages/AppIMU");
+    manager.Install("AppSD", "Pages/AppSD");
+    manager.Install("AppTouch", "Pages/AppTouch");
+    manager.Install("AppI2C", "Pages/AppI2C");
+    manager.Install("AppRTC", "Pages/AppRTC");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_NONE);
 #if defined(ARDUINO)
-    manager.Push("Pages/StartUp");
+    manager.Push("Pages/HomeMenu");
 #else
     manager.Push("Pages/HomeMenu");
 #endif

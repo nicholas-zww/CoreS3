@@ -34,6 +34,4 @@
 
 #define MIC_BUF_SIZE 256
 
-#define MONKEY_TEST_ENABLE 0
-
 #endif  // __CONFIG_H

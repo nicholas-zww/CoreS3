@@ -49,9 +49,7 @@ void setup() {
     // AW9523 Control BOOST
     M5.In_I2C.bitOn(AW9523_ADDR, 0x03, 0b10000000, 100000L);  // BOOST_EN
 
-#if MONKEY_TEST_ENABLE
-    M5.Speaker.setAllChannelVolume(0);
-#endif
+    // M5.Speaker.setAllChannelVolume(0);
     M5.Display.setBrightness(60);
 
     lv_init();
