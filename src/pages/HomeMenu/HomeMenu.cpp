@@ -83,18 +83,18 @@ void HomeMenu::onEvent(lv_event_t* event) {
     lv_event_code_t code = lv_event_get_code(event);
 
     if (code == LV_EVENT_CLICKED) {
-        if (obj == instance->View.ui.imgbtn_list[2]) {
-            instance->_Manager->Replace("Pages/AppMic");
-            return;
-        }
-        // M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"),
-        //                    ~0u, 1, 1);
+        // if (obj == instance->View.ui.imgbtn_list[2]) {
+        //     instance->_Manager->Replace("Pages/AppMic");
+        //     return;
+        // }
+        M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
         if (obj == instance->View.ui.imgbtn_list[0]) {
             instance->_Manager->Replace("Pages/AppWiFi");
         } 
         else if (obj == instance->View.ui.imgbtn_list[1]) {
             instance->_Manager->Replace("Pages/AppCamera");
-        }else if (obj == instance->View.ui.imgbtn_list[4]) {
+        }
+        else if (obj == instance->View.ui.imgbtn_list[4]) {
             instance->_Manager->Replace("Pages/AppIMU");
         }  
         else if (obj == instance->View.ui.imgbtn_list[3]) {

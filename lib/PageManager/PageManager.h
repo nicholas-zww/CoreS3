@@ -190,7 +190,6 @@ private:
     }
 
 private:
-
     /* Page factory */
     PageFactory* _Factory;
 

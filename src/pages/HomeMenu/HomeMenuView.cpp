@@ -31,7 +31,7 @@ static const lv_img_dsc_t* menu_img_pressed_list[] = {
     &menu_sd,
     &menu_touch,
     &menu_i2c,
-    &menu_sys,
+    // &menu_sys,
 };
 
 void HomeMenuView::Create(lv_obj_t* root) {

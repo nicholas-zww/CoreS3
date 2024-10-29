@@ -35,11 +35,11 @@ void App_Init() {
     ResourcePool::Init();
 
     /* Initialize pages */
-    // manager.Install("StartUp", "Pages/StartUp");
+    manager.Install("StartUp", "Pages/StartUp");
     manager.Install("HomeMenu", "Pages/HomeMenu");
     manager.Install("AppWiFi", "Pages/AppWiFi");
     manager.Install("AppCamera", "Pages/AppCamera");
-    manager.Install("AppMic", "Pages/AppMic");
+    // manager.Install("AppMic", "Pages/AppMic");
     manager.Install("AppPower", "Pages/AppPower");
     manager.Install("AppIMU", "Pages/AppIMU");
     manager.Install("AppSD", "Pages/AppSD");
@@ -49,7 +49,7 @@ void App_Init() {
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_NONE);
 #if defined(ARDUINO)
-    manager.Push("Pages/HomeMenu");
+    manager.Push("Pages/StartUp");
 #else
     manager.Push("Pages/HomeMenu");
 #endif

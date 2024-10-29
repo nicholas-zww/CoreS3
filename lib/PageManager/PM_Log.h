@@ -33,8 +33,11 @@
 #  define PM_LOG_ERROR(format, ...) _PM_LOG("[Error] " format, ##__VA_ARGS__)
 #else
 #include <Arduino.h>
-// #  define _PM_LOG(format, ...)      Serial.printf("[PM]" format "\r\n", ##__VA_ARGS__)
+#ifdef PM_DEBUG
+#  define _PM_LOG(format, ...)      Serial.printf("[PM]" format "\r\n", ##__VA_ARGS__)
+#else
 #  define _PM_LOG(format, ...)      
+#endif
 #  define PM_LOG_INFO(format, ...)  _PM_LOG("[Info] " format, ##__VA_ARGS__)
 #  define PM_LOG_WARN(format, ...)  _PM_LOG("[Warn] " format, ##__VA_ARGS__)
 #  define PM_LOG_ERROR(format, ...) _PM_LOG("[Error] " format, ##__VA_ARGS__)

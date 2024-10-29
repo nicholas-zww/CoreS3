@@ -26,9 +26,7 @@ void StartUp::onViewDidLoad() {
 void StartUp::onViewWillAppear() {
     LV_LOG_USER(__func__);
 
-    // M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("poweron_2_5s"),
-    //                    ~0u, 1, 1);
-
+    M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("poweron_2_5s"), ~0u, 1, 1);
     timer = lv_timer_create(onTimerUpdate, 50, this);
     lv_anim_timeline_start(View.ui.anim_timeline);
 }
@@ -63,7 +61,7 @@ void StartUp::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
-void StartUp::Update() {
+void StartUp::Update(StartUp* instance) {
 #if defined(ARDUINO)
     if (M5.Display.getBrightness() < 100) {
         M5.Display.setBrightness(M5.Display.getBrightness() + 5);
@@ -71,6 +69,7 @@ void StartUp::Update() {
 #endif
     if (count > 50) {
         lv_obj_clear_flag(View.ui.img_cores3_diagram, LV_OBJ_FLAG_HIDDEN);
+        instance->_Manager->Replace("Pages/HomeMenu");
     }
     
     count++;
@@ -79,7 +78,7 @@ void StartUp::Update() {
 void StartUp::onTimerUpdate(lv_timer_t* timer) {
     StartUp* instance = (StartUp*)timer->user_data;
 
-    instance->Update();
+    instance->Update(instance);
 }
 
 void StartUp::onEvent(lv_event_t* event) {
@@ -97,8 +96,7 @@ void StartUp::onEvent(lv_event_t* event) {
                 //                   LV_OBJ_FLAG_HIDDEN);
             }
         } else if (code == LV_EVENT_CLICKED) {
-            // M5.Speaker.playWav(
-            //     (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+            M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
             instance->_Manager->Replace("Pages/HomeMenu");
         }
     }

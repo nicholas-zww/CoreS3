@@ -22,7 +22,7 @@ class StartUp : public PageBase {
     virtual void onViewDidUnload();
 
    private:
-    void Update();
+    void Update(StartUp* instance);
     void AttachEvent(lv_obj_t* obj) {
         AttachEvent(obj, LV_EVENT_ALL);
     }

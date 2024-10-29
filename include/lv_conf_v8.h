@@ -219,8 +219,7 @@
  *-----------*/
 
 /*Enable the log module*/
-#define LV_USE_LOG 0
-#if LV_USE_LOG
+#ifdef LV_USE_LOG
 
     /*How important log should be added:
     *LV_LOG_LEVEL_TRACE       A lot of logs to give detailed information

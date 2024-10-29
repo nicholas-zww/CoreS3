@@ -111,13 +111,17 @@ void AppMic::onEvent(lv_event_t* event) {
 
     lv_obj_t* obj        = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
+    
+    USBSerial.printf("AppMic %d\r\n", code);
 
     if (obj == instance->_root) {
         if (code == LV_EVENT_SHORT_CLICKED || code == LV_EVENT_LEAVE) {
             // instance->_Manager->Pop();
+            USBSerial.print("AppMic root\r\n");
         }
     } else {
         if (code == LV_EVENT_CLICKED) {
+            USBSerial.print("AppMic root\r\n");
             if (obj == instance->View.ui.imgbtn_home) {
                 instance->_Manager->Replace("Pages/HomeMenu");
             } else if (obj == instance->View.ui.imgbtn_next) {
