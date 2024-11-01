@@ -2,6 +2,8 @@
 #include "res/ResourcePool.h"
 #include "pages/AppFactory.h"
 
+extern std::vector<UserApp> apps;
+
 void App_Init() {
     static AppFactory factory;
     static PageManager manager(&factory);
@@ -35,24 +37,17 @@ void App_Init() {
     ResourcePool::Init();
 
     /* Initialize pages */
-    manager.Install("StartUp", "Pages/StartUp");
-    manager.Install("HomeMenu", "Pages/HomeMenu");
-    manager.Install("AppWiFi", "Pages/AppWiFi");
-    manager.Install("AppCamera", "Pages/AppCamera");
-    // manager.Install("AppMic", "Pages/AppMic");
-    manager.Install("AppPower", "Pages/AppPower");
-    manager.Install("AppIMU", "Pages/AppIMU");
-    manager.Install("AppSD", "Pages/AppSD");
-    manager.Install("AppTouch", "Pages/AppTouch");
-    manager.Install("AppI2C", "Pages/AppI2C");
-    manager.Install("AppRTC", "Pages/AppRTC");
+    manager.Install("StartUp");
+    manager.Install("HomeMenu");
+
+    for (size_t i = 0; i < apps.size(); i++) {
+        manager.Install(apps[i].className.c_str());
+    }
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_NONE);
-#if defined(ARDUINO)
-    manager.Push("Pages/StartUp");
-#else
-    manager.Push("Pages/HomeMenu");
-#endif
+
+    manager.Push("StartUp");
+
 }
 
 void App_Uninit() {

@@ -40,10 +40,16 @@ class HomeMenuView {
             }
     };
     
+    struct uiButton
+    {
+        lv_obj_t* btn;
+        std::string appName;
+    };
+    
     struct {
         lv_obj_t* img_bg;
         BATTERY battery;
-        lv_obj_t* imgbtn_list[9];
+        std::vector<uiButton> imgbtn_list;
     } ui;
 
    private:

@@ -24,7 +24,7 @@
 #include "AppFactory.h"
 #include "StartUp/StartUp.h"
 #include "HomeMenu/HomeMenu.h"
-#if defined(ARDUINO)
+
 #include "AppWiFi/AppWiFi.h"
 #include "AppCamera/AppCamera.h"
 #include "AppMic/AppMic.h"
@@ -34,7 +34,6 @@
 #include "AppTouch/AppTouch.h"
 #include "AppI2C/AppI2C.h"
 #include "AppRTC/AppRTC.h"
-#endif
 
 std::vector<UserApp> apps;
 
@@ -53,7 +52,6 @@ LV_IMG_DECLARE(menu_sys);
 AppFactory::AppFactory() {
     REG_PAGE(StartUp);
     REG_PAGE(HomeMenu);
-#if defined(ARDUINO)
     REG_PAGE(AppWiFi);
     REG_PAGE(AppCamera);
     REG_PAGE(AppMic);
@@ -63,7 +61,6 @@ AppFactory::AppFactory() {
     REG_PAGE(AppTouch);
     REG_PAGE(AppI2C);
     REG_PAGE(AppRTC);
-#endif
 
     apps.clear();
 // #if defined(ARDUINO)

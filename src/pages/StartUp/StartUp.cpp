@@ -70,7 +70,7 @@ void StartUp::Update(StartUp* instance) {
 #endif
     if (count > 50) {
         lv_obj_clear_flag(View.ui.img_cores3_diagram, LV_OBJ_FLAG_HIDDEN);
-        instance->_Manager->Replace("Pages/HomeMenu");
+        instance->_Manager->Replace("HomeMenu");
     }
     
     count++;
@@ -100,7 +100,7 @@ void StartUp::onEvent(lv_event_t* event) {
 #if defined(ARDUINO)            
             M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
 #endif
-            instance->_Manager->Replace("Pages/HomeMenu");
+            instance->_Manager->Replace("HomeMenu");
         }
     }
 }

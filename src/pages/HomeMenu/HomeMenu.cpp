@@ -18,9 +18,8 @@ void HomeMenu::onViewLoad() {
 
     View.Create(_root);
 
-    for (size_t i = 0; i < 9; i++) {
-        if (View.ui.imgbtn_list[i] != nullptr)
-            AttachEvent(View.ui.imgbtn_list[i], LV_EVENT_CLICKED);
+    for (size_t i = 0; i < View.ui.imgbtn_list.size(); i++) {
+        AttachEvent(View.ui.imgbtn_list[i].btn, LV_EVENT_CLICKED);
     }
 }
 
@@ -84,32 +83,15 @@ void HomeMenu::onEvent(lv_event_t* event) {
     lv_event_code_t code = lv_event_get_code(event);
 
     if (code == LV_EVENT_CLICKED) {
-        // if (obj == instance->View.ui.imgbtn_list[2]) {
-        //     instance->_Manager->Replace("Pages/AppMic");
-        //     return;
-        // }
 #if defined(ARDUINO)        
         M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
 #endif
-        if (obj == instance->View.ui.imgbtn_list[0]) {
-            instance->_Manager->Replace("Pages/AppWiFi");
-        } 
-        else if (obj == instance->View.ui.imgbtn_list[1]) {
-            instance->_Manager->Replace("Pages/AppCamera");
-        }
-        else if (obj == instance->View.ui.imgbtn_list[4]) {
-            instance->_Manager->Replace("Pages/AppIMU");
-        }  
-        else if (obj == instance->View.ui.imgbtn_list[3]) {
-            instance->_Manager->Replace("Pages/AppPower");
-        } else if (obj == instance->View.ui.imgbtn_list[5]) {
-            instance->_Manager->Replace("Pages/AppSD");
-        } else if (obj == instance->View.ui.imgbtn_list[6]) {
-            instance->_Manager->Replace("Pages/AppTouch");
-        } else if (obj == instance->View.ui.imgbtn_list[7]) {
-            instance->_Manager->Replace("Pages/AppI2C");
-        } else if (obj == instance->View.ui.imgbtn_list[8]) {
-            instance->_Manager->Replace("Pages/AppRTC");
+
+        for (const auto &a : instance->View.ui.imgbtn_list) {
+            if (a.btn == obj) {
+                instance->_Manager->Replace(a.appName.c_str());
+                break;
+            }
         }
     }
 }

@@ -106,7 +106,7 @@ public:
     ~PageManager();
 
     /* Loader */
-    bool Install(const char* className, const char* appName);
+    bool Install(const char* className, const char* appName = nullptr);
     bool Uninstall(const char* appName);
     bool Register(PageBase* base, const char* name);
     bool Unregister(const char* name);
