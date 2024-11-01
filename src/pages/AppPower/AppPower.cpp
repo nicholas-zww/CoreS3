@@ -22,7 +22,7 @@ void AppPower::onViewLoad() {
     AttachEvent(View.ui.btn_top_center, LV_EVENT_CLICKED);
     AttachEvent(View.ui.imgbtn_usb, LV_EVENT_CLICKED);
     AttachEvent(View.ui.imgbtn_bus, LV_EVENT_CLICKED);
-
+#if defined(ARDUINO)
     Model.AxpAdcEnable();
     Model.AxpCHGLedEnable();
 
@@ -30,6 +30,7 @@ void AppPower::onViewLoad() {
     View.ChangeBgImg(Model.power_mode);
     View.ChangeUsbImg(Model.mode_bit.usb);
     View.ChangeBusImg(Model.mode_bit.bus);
+#endif
 }
 
 void AppPower::onViewDidLoad() {
@@ -52,8 +53,9 @@ void AppPower::onViewWillDisappear() {
 void AppPower::onViewDidDisappear() {
     LV_LOG_USER(__func__);
     lv_timer_del(timer);
-
+#if defined(ARDUINO)
     Model.AxpCHGLedDisable();
+#endif
 }
 
 void AppPower::onViewUnload() {
@@ -74,6 +76,7 @@ void AppPower::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void AppPower::Update() {
+#if defined(ARDUINO)
     Model.AxpAdcSampling();
     View.ChangeBatImg(Model.AxpBatIsCharging());
 
@@ -100,6 +103,7 @@ void AppPower::Update() {
 
     // USBSerial.printf("vbus:%f, vbat:%f, tdie:%f, ts:%f\r\n", Model.vbus, Model.vbat,
     //               Model.tdie, Model.ts);
+#endif
 }
 
 void AppPower::onTimerUpdate(lv_timer_t* timer) {
@@ -121,27 +125,37 @@ void AppPower::onEvent(lv_event_t* event) {
         }
     } else {
         if (code == LV_EVENT_CLICKED) {
+#if defined(ARDUINO)
             M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+#endif
             if (obj == instance->View.ui.imgbtn_home) {
                 instance->_Manager->Replace("Pages/HomeMenu");
             } 
             else if (obj == instance->View.ui.imgbtn_next) {
+#if defined(ARDUINO)                
                 Serial.print("AppPower -> AppIMU\r\n");
+#endif
                 instance->_Manager->Replace("Pages/AppIMU");
             } 
             else if (obj == instance->View.ui.imgbtn_next) {
+#if defined(ARDUINO)                
                 USBSerial.print("AppPower -> AppIMU\r\n");
+#endif                
                 instance->_Manager->Replace("Pages/AppIMU");
             } else if (obj == instance->View.ui.imgbtn_usb) {
+#if defined(ARDUINO)                
                 instance->Model.mode_bit.usb = !instance->Model.mode_bit.usb;
                 instance->Model.SetPowerMode(instance->Model.power_mode);
                 instance->View.ChangeUsbImg(instance->Model.mode_bit.usb);
                 instance->View.ChangeBgImg(instance->Model.power_mode);
+#endif                
             } else if (obj == instance->View.ui.imgbtn_bus) {
+#if defined(ARDUINO)                
                 instance->Model.mode_bit.bus = !instance->Model.mode_bit.bus;
                 instance->Model.SetPowerMode(instance->Model.power_mode);
                 instance->View.ChangeBusImg(instance->Model.mode_bit.bus);
                 instance->View.ChangeBgImg(instance->Model.power_mode);
+#endif
             }
         }
     }

@@ -2,8 +2,10 @@
 #define __APPMIC_PRESENTER_H
 
 #include "AppMicView.h"
+#if defined(ARDUINO)
 #include "AppMicModel.h"
 #include "M5Unified.h"
+#endif
 
 namespace Page {
 
@@ -34,10 +36,13 @@ class AppMic : public PageBase {
 
    private:
     AppMicView View;
+#if defined(ARDUINO)
     AppMicModel Model;
+#endif
     lv_timer_t* timer;
-
+#if defined(ARDUINO)
     M5Canvas canvas[2];
+#endif
 };
 
 }  // namespace Page

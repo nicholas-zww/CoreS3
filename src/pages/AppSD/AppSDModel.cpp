@@ -1,5 +1,5 @@
 #include "AppSDModel.h"
-
+#if defined(ARDUINO)
 using namespace Page;
 
 bool AppSDModel::SDInit() {
@@ -23,3 +23,5 @@ void AppSDModel::ClearInitFlag() {
 bool AppSDModel::IsSDCardExist() {
     return (bool)!((M5.In_I2C.readRegister8(AW9523_ADDR, 0x00, 100000L) >> 4) & 0x01);
 }
+#endif
+

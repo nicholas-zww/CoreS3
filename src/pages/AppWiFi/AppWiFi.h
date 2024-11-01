@@ -2,8 +2,9 @@
 #define __APPWIFI_PRESENTER_H
 
 #include "AppWiFiView.h"
+#if defined(ARDUINO)
 #include "AppWiFiModel.h"
-
+#endif
 namespace Page {
 
 class AppWiFi : public PageBase {
@@ -35,7 +36,9 @@ class AppWiFi : public PageBase {
 
    private:
     AppWiFiView View;
+    #if defined(ARDUINO)
     AppWiFiModel Model;
+    #endif
     lv_timer_t* timer;
 };
 

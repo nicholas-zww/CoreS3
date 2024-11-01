@@ -1,6 +1,7 @@
 #ifndef __APPCAMERA_MODEL_H
 #define __APPCAMERA_MODEL_H
 
+#if defined(ARDUINO)
 #include "lvgl.h"
 #include "../Page.h"
 
@@ -26,4 +27,5 @@ class AppCameraModel {
 
 }  // namespace Page
 
+#endif
 #endif

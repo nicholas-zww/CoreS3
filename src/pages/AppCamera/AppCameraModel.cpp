@@ -1,4 +1,5 @@
 #include "AppCameraModel.h"
+#if defined(ARDUINO)
 
 using namespace Page;
 
@@ -108,3 +109,4 @@ uint16_t AppCameraModel::GetLTR553PsValue() {
     result = (buffer[1] << 8) | buffer[0];
     return result;
 }
+#endif

@@ -1,6 +1,6 @@
 #ifndef __APPSD_MODEL_H
 #define __APPSD_MODEL_H
-
+#if defined(ARDUINO)
 #include <SD.h>
 #include "lvgl.h"
 #include "M5Unified.h"
@@ -23,4 +23,5 @@ class AppSDModel {
 
 }  // namespace Page
 
+#endif
 #endif

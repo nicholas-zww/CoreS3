@@ -2,8 +2,9 @@
 #define __APPRTC_PRESENTER_H
 
 #include "AppRTCView.h"
+#if defined(ARDUINO)
 #include "AppRTCModel.h"
-
+#endif
 namespace Page {
 
 class AppRTC : public PageBase {
@@ -32,7 +33,9 @@ class AppRTC : public PageBase {
 
    private:
     AppRTCView View;
+#if defined(ARDUINO)
     AppRTCModel Model;
+#endif
     lv_timer_t* timer;
     bool brightness_flag = false;
 };

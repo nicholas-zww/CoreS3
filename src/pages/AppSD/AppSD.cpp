@@ -15,12 +15,12 @@ void AppSD::onCustomAttrConfig() {
 void AppSD::onViewLoad() {
     LV_LOG_USER(__func__);
     View.Create(_root);
-
+#if defined(ARDUINO)
     if (Model.IsSDCardExist()) {
         lv_label_set_text(View.ui.label_notice, "Initialize SD Card...");
         Model.SDInit();
     }
-
+#endif
     AttachEvent(View.ui.imgbtn_home, LV_EVENT_CLICKED);
     AttachEvent(View.ui.imgbtn_next, LV_EVENT_CLICKED);
     AttachEvent(View.ui.btn_top_center, LV_EVENT_CLICKED);
@@ -53,7 +53,9 @@ void AppSD::onViewUnload() {
 
     View.Delete();
     scan_flag = true;
+    #if defined(ARDUINO)
     Model.SDDeinit();
+    #endif
 }
 
 void AppSD::onViewDidUnload() {
@@ -66,7 +68,7 @@ void AppSD::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
-
+#if defined(ARDUINO)
 void AppSD::ListSDCard(fs::FS& fs, const char* dirname, uint8_t levels) {
     File root = fs.open(dirname);
     if (!root) {
@@ -97,8 +99,10 @@ void AppSD::ListSDCard(fs::FS& fs, const char* dirname, uint8_t levels) {
         file = root.openNextFile();
     }
 }
+#endif
 
 void AppSD::Update() {
+#if defined(ARDUINO)
     if (Model.IsSDCardExist()) {
         if (!Model.GetInitFlag()) {
             lv_obj_clean(View.ui.file_list);
@@ -119,8 +123,12 @@ void AppSD::Update() {
                 scan_flag = false;
             }
         }
-    } else {
+    } 
+    else {
         Model.ClearInitFlag();
+#else 
+    {
+#endif
         scan_flag = true;
         lv_obj_clean(View.ui.file_list);
         lv_label_set_text(View.ui.label_notice, "Please insert SD card...");
@@ -142,11 +150,15 @@ void AppSD::onEvent(lv_event_t* event) {
     lv_event_code_t code = lv_event_get_code(event);
 
     if (code == LV_EVENT_CLICKED) {
+#if defined(ARDUINO)        
         M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+#endif        
         if (obj == instance->View.ui.imgbtn_home) {
             instance->_Manager->Replace("Pages/HomeMenu");
         } else if (obj == instance->View.ui.imgbtn_next) {
+#if defined(ARDUINO)            
             USBSerial.print("AppSD -> AppTouch\r\n");
+#endif
             instance->_Manager->Replace("Pages/AppTouch");
         } else if (obj == instance->View.ui.btn_top_center) {
             instance->scan_flag = true;

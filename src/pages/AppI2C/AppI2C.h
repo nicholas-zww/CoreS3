@@ -2,7 +2,9 @@
 #define __APPI2C_PRESENTER_H
 
 #include "AppI2CView.h"
+#if defined(ARDUINO)
 #include "AppI2CModel.h"
+#endif
 
 namespace Page {
 
@@ -35,7 +37,9 @@ class AppI2C : public PageBase {
 
    private:
     AppI2CView View;
+#if defined(ARDUINO)
     AppI2CModel Model;
+#endif
     lv_timer_t* timer;
 };
 

@@ -2,8 +2,9 @@
 #define __APPSD_PRESENTER_H
 
 #include "AppSDView.h"
+#if defined(ARDUINO)
 #include "AppSDModel.h"
-
+#endif
 namespace Page {
 
 class AppSD : public PageBase {
@@ -32,12 +33,14 @@ class AppSD : public PageBase {
     void AttachEvent(lv_obj_t* obj, lv_event_code_t code);
     static void onTimerUpdate(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
-
+#if defined(ARDUINO)
     void ListSDCard(fs::FS& fs, const char* dirname, uint8_t levels);
-
+#endif
    private:
     AppSDView View;
+    #if defined(ARDUINO)
     AppSDModel Model;
+    #endif
     lv_timer_t* timer;
 };
 

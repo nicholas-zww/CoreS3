@@ -1,6 +1,6 @@
 #ifndef __APPWIFI_MODEL_H
 #define __APPWIFI_MODEL_H
-
+#if defined(ARDUINO)
 #include <WiFi.h>
 #include "lvgl.h"
 
@@ -20,4 +20,5 @@ class AppWiFiModel {
 
 }  // namespace Page
 
+#endif
 #endif

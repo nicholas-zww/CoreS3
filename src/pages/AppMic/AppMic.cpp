@@ -3,6 +3,7 @@
 using namespace Page;
 
 AppMic::AppMic() : timer(nullptr) {
+#if defined(ARDUINO)
     canvas[0].setPsram(true);
     canvas[0].setColorDepth(1);
     canvas[0].createSprite(128, 120);
@@ -12,11 +13,14 @@ AppMic::AppMic() : timer(nullptr) {
     canvas[1].setColorDepth(1);
     canvas[1].createSprite(128, 120);
     canvas[1].clear(0xeeeeef);
+#endif
 }
 
 AppMic::~AppMic() {
+#if defined(ARDUINO)
     canvas[0].deleteSprite();
     canvas[1].deleteSprite();
+#endif
 }
 
 void AppMic::onCustomAttrConfig() {
@@ -30,8 +34,9 @@ void AppMic::onViewLoad() {
     AttachEvent(_root);
     AttachEvent(View.ui.imgbtn_home, LV_EVENT_CLICKED);
     AttachEvent(View.ui.imgbtn_next, LV_EVENT_CLICKED);
-
+#if defined(ARDUINO)
     Model.MicBegin();
+#endif
 }
 
 void AppMic::onViewDidLoad() {
@@ -62,7 +67,9 @@ void AppMic::onViewUnload() {
     LV_LOG_USER(__func__);
 
     View.Delete();
+#if defined(ARDUINO)    
     Model.MicEnd();
+#endif    
 }
 
 void AppMic::onViewDidUnload() {
@@ -77,6 +84,7 @@ void AppMic::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void AppMic::Update() {
+#if defined(ARDUINO)    
     if (Model.IsMicEnable()) {
         Model.ReadMicData();
         for (size_t lr = 0; lr < 2; ++lr) {
@@ -95,6 +103,7 @@ void AppMic::Update() {
         }
         Model.buf_index = (Model.buf_index + 1) % 2;
     }
+#endif    
 }
 
 void AppMic::onTimerUpdate(lv_timer_t* timer) {
@@ -111,21 +120,27 @@ void AppMic::onEvent(lv_event_t* event) {
 
     lv_obj_t* obj        = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
-    
+#if defined(ARDUINO)    
     USBSerial.printf("AppMic %d\r\n", code);
-
+#endif
     if (obj == instance->_root) {
         if (code == LV_EVENT_SHORT_CLICKED || code == LV_EVENT_LEAVE) {
             // instance->_Manager->Pop();
+#if defined(ARDUINO)            
             USBSerial.print("AppMic root\r\n");
+#endif
         }
     } else {
         if (code == LV_EVENT_CLICKED) {
+#if defined(ARDUINO)            
             USBSerial.print("AppMic root\r\n");
+#endif            
             if (obj == instance->View.ui.imgbtn_home) {
                 instance->_Manager->Replace("Pages/HomeMenu");
             } else if (obj == instance->View.ui.imgbtn_next) {
+#if defined(ARDUINO)                
                 USBSerial.print("AppMic -> AppPower\r\n");
+#endif            
                 instance->_Manager->Replace("Pages/AppPower");
             } else if (obj == instance->View.ui.btn_top_center) {
             }

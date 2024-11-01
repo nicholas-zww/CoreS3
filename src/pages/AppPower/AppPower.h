@@ -2,7 +2,9 @@
 #define __APPPOWER_PRESENTER_H
 
 #include "AppPowerView.h"
+#if defined(ARDUINO)
 #include "AppPowerModel.h"
+#endif
 
 namespace Page {
 
@@ -35,7 +37,9 @@ class AppPower : public PageBase {
 
    private:
     AppPowerView View;
+#if defined(ARDUINO)    
     AppPowerModel Model;
+#endif
     lv_timer_t* timer;
 };
 

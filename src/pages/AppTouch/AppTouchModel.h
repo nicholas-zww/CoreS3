@@ -1,6 +1,6 @@
 #ifndef __APPTOUCH_MODEL_H
 #define __APPTOUCH_MODEL_H
-
+#if defined(ARDUINO)
 #include "lvgl.h"
 
 namespace Page {
@@ -12,4 +12,5 @@ class AppTouchModel {
 
 }  // namespace Page
 
+#endif
 #endif

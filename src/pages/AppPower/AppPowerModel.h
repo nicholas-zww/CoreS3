@@ -1,6 +1,6 @@
 #ifndef __APPPOWER_MODEL_H
 #define __APPPOWER_MODEL_H
-
+#if defined(ARDUINO)
 #include "lvgl.h"
 #include "M5Unified.h"
 #include "config.h"
@@ -33,4 +33,5 @@ class AppPowerModel {
 
 }  // namespace Page
 
+#endif
 #endif

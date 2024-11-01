@@ -2,8 +2,9 @@
 #define __APPIMU_PRESENTER_H
 
 #include "AppIMUView.h"
+#if defined(ARDUINO)
 #include "AppIMUModel.h"
-
+#endif
 namespace Page {
 
 class AppIMU : public PageBase {
@@ -43,10 +44,13 @@ class AppIMU : public PageBase {
 
    private:
     AppIMUView View;
+#if defined(ARDUINO)
     AppIMUModel Model;
+#endif
     lv_timer_t* timer;
-
+#if defined(ARDUINO)
     M5Canvas canvas;
+#endif
 };
 
 }  // namespace Page

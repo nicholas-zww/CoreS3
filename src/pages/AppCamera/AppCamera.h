@@ -2,7 +2,9 @@
 #define __APPCAMERA_PRESENTER_H
 
 #include "AppCameraView.h"
+#if defined(ARDUINO)
 #include "AppCameraModel.h"
+#endif
 
 namespace Page {
 
@@ -32,7 +34,9 @@ class AppCamera : public PageBase {
 
    private:
     AppCameraView View;
+#if defined(ARDUINO)
     AppCameraModel Model;
+#endif
     lv_timer_t* timer;
 };
 

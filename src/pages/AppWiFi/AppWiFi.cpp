@@ -15,9 +15,9 @@ void AppWiFi::onCustomAttrConfig() {
 void AppWiFi::onViewLoad() {
     LV_LOG_USER(__func__);
     View.Create(_root);
-
+#if defined(ARDUINO)
     Model.Init();
-
+#endif
     AttachEvent(View.ui.imgbtn_home, LV_EVENT_CLICKED);
     AttachEvent(View.ui.imgbtn_next, LV_EVENT_CLICKED);
     AttachEvent(View.ui.btn_top_center, LV_EVENT_CLICKED);
@@ -30,8 +30,9 @@ void AppWiFi::onViewDidLoad() {
 void AppWiFi::onViewWillAppear() {
     LV_LOG_USER(__func__);
     timer = lv_timer_create(onTimerUpdate, 100, this);
-
+#if defined(ARDUINO)
     Model.Scan();
+#endif
     lv_obj_clear_flag(View.ui.label_scaning, LV_OBJ_FLAG_HIDDEN);
 }
 
@@ -53,7 +54,9 @@ void AppWiFi::onViewUnload() {
 
     View.Delete();
     scan_done = false;
+    #if defined(ARDUINO)
     WiFi.scanDelete();
+    #endif
 }
 
 void AppWiFi::onViewDidUnload() {
@@ -68,6 +71,7 @@ void AppWiFi::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void AppWiFi::Update() {
+    #if defined(ARDUINO)
     if (Model.GetScanCount() >= 0 && !scan_done) {
         lv_obj_add_flag(View.ui.label_scaning, LV_OBJ_FLAG_HIDDEN);
         scan_done = true;
@@ -78,6 +82,7 @@ void AppWiFi::Update() {
                                   Model.GetSSID(i), Model.GetRSSI(i));
         }
     }
+    #endif
 }
 
 void AppWiFi::onTimerUpdate(lv_timer_t* timer) {
@@ -94,16 +99,22 @@ void AppWiFi::onEvent(lv_event_t* event) {
     lv_event_code_t code = lv_event_get_code(event);
 
     if (code == LV_EVENT_CLICKED) {
+        #if defined(ARDUINO)
         M5.Speaker.playWav( (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+        #endif
         if (obj == instance->View.ui.imgbtn_home) {
             instance->_Manager->Replace("Pages/HomeMenu");
         } 
         else if (obj == instance->View.ui.imgbtn_next) {
+            #if defined(ARDUINO)
             USBSerial.print("AppWiFi -> AppCamera\r\n");
+            #endif
             instance->_Manager->Replace("Pages/AppCamera");
         } 
         else if (obj == instance->View.ui.btn_top_center) {
+            #if defined(ARDUINO)
             instance->Model.Scan();
+            #endif
             instance->scan_done = false;
             lv_obj_clear_flag(instance->View.ui.label_scaning,
                                 LV_OBJ_FLAG_HIDDEN);

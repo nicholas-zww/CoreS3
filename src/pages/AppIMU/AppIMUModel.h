@@ -1,6 +1,6 @@
 #ifndef __APPIMU_MODEL_H
 #define __APPIMU_MODEL_H
-
+#if defined(ARDUINO)
 #include <nvs_flash.h>
 #include "lvgl.h"
 #include "config.h"
@@ -96,4 +96,5 @@ class AppIMUModel {
 
 }  // namespace Page
 
+#endif
 #endif

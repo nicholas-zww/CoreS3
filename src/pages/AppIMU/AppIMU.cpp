@@ -3,8 +3,10 @@
 using namespace Page;
 
 AppIMU::AppIMU() : timer(nullptr) {
+#if defined(ARDUINO)
     Model.Init();
     Model.filter.begin(20);  // 20hz
+#endif
 }
 
 AppIMU::~AppIMU() {
@@ -22,10 +24,11 @@ void AppIMU::onViewLoad() {
     AttachEvent(View.ui.imgbtn_home, LV_EVENT_CLICKED);
     AttachEvent(View.ui.imgbtn_next, LV_EVENT_CLICKED);
     AttachEvent(View.ui.btn_top_center, LV_EVENT_CLICKED);
-
+#if defined(ARDUINO)
     if (!Model.ReadCalibration()) {
         lv_obj_clear_flag(View.ui.label_notice, LV_OBJ_FLAG_HIDDEN);
     }
+#endif
 }
 
 void AppIMU::onViewDidLoad() {
@@ -69,6 +72,7 @@ void AppIMU::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void AppIMU::Update() {
+#if defined(ARDUINO)    
     Model.Update();
 
     float dir = Model.CalcuDir();
@@ -113,6 +117,7 @@ void AppIMU::Update() {
 
     float angle = ((360 - dir) + 90) * 10;
     lv_img_set_angle(View.ui.img_compass, angle);
+#endif
 }
 
 void AppIMU::onTimerUpdate(lv_timer_t* timer) {
@@ -138,11 +143,15 @@ void AppIMU::onEvent(lv_event_t* event) {
                 instance->calibration_flag = true;
                 return;
             }
+#if defined(ARDUINO)            
             M5.Speaker.playWav( (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+#endif
             if (obj == instance->View.ui.imgbtn_home) {
                 instance->_Manager->Replace("Pages/HomeMenu");
             } else if (obj == instance->View.ui.imgbtn_next) {
+#if defined(ARDUINO)                
                 USBSerial.print("AppIMU -> AppSD\r\n");
+#endif            
                 instance->_Manager->Replace("Pages/AppSD");
             }
         }

@@ -34,10 +34,11 @@ void AppI2C::onViewWillAppear() {
 
     scan_flag = true;
     timer     = lv_timer_create(onTimerUpdate, 1000, this);
-
+#if defined(ARDUINO)
     M5.In_I2C.bitOff(AW9523_ADDR, 0x02, 0b100000, 100000L);
     M5.In_I2C.bitOn(AW9523_ADDR, 0x02, 0b000010, 100000L);
     M5.In_I2C.bitOn(AW9523_ADDR, 0x03, 0b10000000, 100000L);  // BOOST_EN
+#endif
 }
 
 void AppI2C::onViewDidAppear() {
@@ -71,6 +72,7 @@ void AppI2C::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void AppI2C::Update() {
+#if defined(ARDUINO)
     if (scan_flag) {
         bool addrs[120];
 
@@ -118,6 +120,7 @@ void AppI2C::Update() {
         }
         scan_flag = false;
     }
+#endif
 }
 
 void AppI2C::onTimerUpdate(lv_timer_t* timer) {
@@ -139,11 +142,15 @@ void AppI2C::onEvent(lv_event_t* event) {
         }
     } else {
         if (code == LV_EVENT_CLICKED) {
+#if defined(ARDUINO)            
             M5.Speaker.playWav( (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+#endif
             if (obj == instance->View.ui.imgbtn_home) {
                 instance->_Manager->Replace("Pages/HomeMenu");
             } else if (obj == instance->View.ui.imgbtn_next) {
+#if defined(ARDUINO)                
                 USBSerial.print("AppI2C -> AppWiFi\r\n");
+#endif                
                 instance->_Manager->Replace("Pages/AppWiFi");
             } else if (obj == instance->View.ui.btn_top_center) {
                 instance->port_index += 1;

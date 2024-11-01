@@ -19,7 +19,8 @@ void HomeMenu::onViewLoad() {
     View.Create(_root);
 
     for (size_t i = 0; i < 9; i++) {
-        AttachEvent(View.ui.imgbtn_list[i], LV_EVENT_CLICKED);
+        if (View.ui.imgbtn_list[i] != nullptr)
+            AttachEvent(View.ui.imgbtn_list[i], LV_EVENT_CLICKED);
     }
 }
 
@@ -87,7 +88,9 @@ void HomeMenu::onEvent(lv_event_t* event) {
         //     instance->_Manager->Replace("Pages/AppMic");
         //     return;
         // }
+#if defined(ARDUINO)        
         M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+#endif
         if (obj == instance->View.ui.imgbtn_list[0]) {
             instance->_Manager->Replace("Pages/AppWiFi");
         } 

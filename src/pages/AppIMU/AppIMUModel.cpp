@@ -1,5 +1,5 @@
 #include "AppIMUModel.h"
-
+#if defined(ARDUINO)
 using namespace Page;
 
 bmi2_dev aux_bmi2_dev;
@@ -286,3 +286,4 @@ int8_t AppIMUModel::aux_i2c_write(uint8_t reg_addr, const uint8_t *reg_data,
     ret = bmi2_write_aux_man_mode(reg_addr, reg_data, length, &aux_bmi2_dev);
     return ret;
 }
+#endif

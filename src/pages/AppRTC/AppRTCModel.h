@@ -1,6 +1,6 @@
 #ifndef __APPRTC_MODEL_H
 #define __APPRTC_MODEL_H
-
+#if defined(ARDUINO)
 #include "lvgl.h"
 #include "M5Unified.h"
 #include "config.h"
@@ -21,4 +21,5 @@ class AppRTCModel {
 
 }  // namespace Page
 
+#endif
 #endif

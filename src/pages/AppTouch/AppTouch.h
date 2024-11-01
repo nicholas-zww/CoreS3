@@ -2,8 +2,9 @@
 #define __APPTOUCH_PRESENTER_H
 
 #include "AppTouchView.h"
+#if defined(ARDUINO)
 #include "AppTouchModel.h"
-
+#endif
 namespace Page {
 
 class AppTouch : public PageBase {
@@ -31,15 +32,19 @@ class AppTouch : public PageBase {
     static void onEvent(lv_event_t* event);
 
     void ClearTouchPoint(void) {
+        #if defined(ARDUINO)
         t_prev.x = 0;
         t_prev.y = 0;
+        #endif
     }
 
    private:
     AppTouchView View;
+#if defined(ARDUINO)
     AppTouchModel Model;
-    lv_timer_t* timer;
     m5gfx::touch_point_t t_prev;
+#endif
+    lv_timer_t* timer;
 };
 
 }  // namespace Page

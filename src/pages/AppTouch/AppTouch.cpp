@@ -19,9 +19,10 @@ void AppTouch::onViewLoad() {
     AttachEvent(View.ui.imgbtn_home, LV_EVENT_CLICKED);
     AttachEvent(View.ui.imgbtn_next, LV_EVENT_CLICKED);
     AttachEvent(View.ui.btn_top_center, LV_EVENT_CLICKED);
-
+#if defined(ARDUINO)
     M5.Touch.getCount();
     M5.Touch.getTouchPointRaw(0);
+#endif
     ClearTouchPoint();
 }
 
@@ -66,6 +67,7 @@ void AppTouch::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void AppTouch::Update() {
+    #if defined(ARDUINO)
     static std::uint32_t color = 0;
     auto count                 = M5.Touch.getCount();
     if (!count) {
@@ -85,6 +87,7 @@ void AppTouch::Update() {
         ClearTouchPoint();
     }
     color += 32;
+    #endif
 }
 
 void AppTouch::onTimerUpdate(lv_timer_t* timer) {
@@ -101,14 +104,20 @@ void AppTouch::onEvent(lv_event_t* event) {
     lv_event_code_t code = lv_event_get_code(event);
 
     if (code == LV_EVENT_CLICKED) {
+        #if defined(ARDUINO)
         M5.Speaker.playWav( (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+        #endif
         if (obj == instance->View.ui.imgbtn_home) {
             instance->_Manager->Replace("Pages/HomeMenu");
         } else if (obj == instance->View.ui.imgbtn_next) {
+            #if defined(ARDUINO)
             USBSerial.print("AppTouch -> AppI2C\r\n");
+            #endif
             instance->_Manager->Replace("Pages/AppI2C");
         } else if (obj == instance->View.ui.btn_top_center) {
+            #if defined(ARDUINO)
             M5.Display.fillRect(0, 68, 320, 172, TFT_WHITE);
+            #endif
             instance->ClearTouchPoint();
         }
     }

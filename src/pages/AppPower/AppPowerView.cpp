@@ -76,6 +76,7 @@ void AppPowerView::Delete() {
 }
 
 void AppPowerView::ChangeBgImg(uint8_t mode) {
+    #if defined(ARDUINO)
     switch (mode) {
         case POWER_MODE_USB_IN_BUS_IN:
             lv_img_set_src(ui.img_bg, ResourcePool::GetImage("app_power_ii"));
@@ -92,6 +93,7 @@ void AppPowerView::ChangeBgImg(uint8_t mode) {
         default:
             break;
     }
+    #endif
 }
 
 void AppPowerView::ChangeBatImg(uint8_t index) {

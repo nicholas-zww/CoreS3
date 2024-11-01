@@ -1,5 +1,5 @@
 #include "AppRTCModel.h"
-
+#if defined(ARDUINO)
 using namespace Page;
 
 void AppRTCModel::SetRtcTimer(uint8_t seconds) {
@@ -53,3 +53,4 @@ void AppRTCModel::UpdateBrightness() {
         }
     }
 }
+#endif

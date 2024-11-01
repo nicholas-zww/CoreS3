@@ -24,6 +24,18 @@
 #define __PAGE_FACTORY_H
 
 #include "PageBase.h"
+#include "Maybe.h"
+#include <string>
+
+class UserApp
+{
+    public:
+        std::string className;
+        const lv_img_dsc_t* icon; 
+        Maybe<std::string> prePage;
+        Maybe<std::string> nextPage;
+        Maybe<std::string> homePage;
+};
 
 class PageFactory
 {
@@ -33,6 +45,21 @@ public:
     {
         return nullptr;
     };
+
+    virtual Maybe<std::string> GetNextPage(const std::string& name)
+    {
+        return Maybe<std::string>::Nothing();
+    }
+
+    virtual Maybe<std::string> GetPreviousPage(const std::string& name)
+    {
+        return Maybe<std::string>::Nothing();
+    }
+
+    virtual Maybe<std::string> GetHomePage(const std::string& name)
+    {
+        return Maybe<std::string>::Nothing();
+    }
 };
 
 

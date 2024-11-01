@@ -16,8 +16,10 @@ void AppCamera::onViewLoad() {
     LV_LOG_USER(__func__);
     View.Create(_root);
 
+#if defined(ARDUINO)
     Model.LTR553Init();
     Model.CameraInit();
+#endif
 
     AttachEvent(_root);
     AttachEvent(View.ui.imgbtn_home, LV_EVENT_CLICKED);
@@ -51,8 +53,10 @@ void AppCamera::onViewUnload() {
     LV_LOG_USER(__func__);
 
     View.Delete();
+#if defined(ARDUINO)
     Model.ReleaseFramebuffer();
     Model.CameraDeinit();
+#endif
 }
 
 void AppCamera::onViewDidUnload() {
@@ -67,6 +71,7 @@ void AppCamera::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 }
 
 void AppCamera::Update() {
+#if defined(ARDUINO)
     if (Model.GetFramebuffer()) {
         M5.Display.startWrite();
         M5.Display.setAddrWindow(25, 90, 160, 120);
@@ -100,6 +105,7 @@ void AppCamera::Update() {
     for (size_t i = 0; i < (ps_num > 8 ? 8 : ps_num); i++) {
         lv_obj_clear_flag(View.ui.obj_ltr553_ps_list[i], LV_OBJ_FLAG_HIDDEN);
     }
+#endif
 }
 
 void AppCamera::onTimerUpdate(lv_timer_t* timer) {
@@ -122,10 +128,14 @@ void AppCamera::onEvent(lv_event_t* event) {
     } else {
         if (code == LV_EVENT_CLICKED) {
             if (obj == instance->View.ui.imgbtn_home) {
+#if defined(ARDUINO)                
                 M5.Speaker.playWav( (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+#endif
                 instance->_Manager->Replace("Pages/HomeMenu");
             } else if (obj == instance->View.ui.imgbtn_next) {
+#if defined(ARDUINO)                
                 USBSerial.print("AppCamera -> AppPower\r\n");
+#endif
                 instance->_Manager->Replace("Pages/AppPower");
             }
         }

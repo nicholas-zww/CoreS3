@@ -1,5 +1,5 @@
 #include "AppWiFiModel.h"
-
+#if defined(ARDUINO)
 using namespace Page;
 
 void AppWiFiModel::Init() {
@@ -25,3 +25,4 @@ char* AppWiFiModel::GetSSID(uint8_t index) {
 int32_t AppWiFiModel::GetRSSI(uint8_t index) {
     return WiFi.RSSI(index);
 }
+#endif

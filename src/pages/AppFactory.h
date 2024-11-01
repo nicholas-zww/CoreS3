@@ -21,12 +21,21 @@
  * SOFTWARE.
  */
 #include "PageManager.h"
+#include <string>
+#include <Maybe.h>
+#include <functional>
+#include <unordered_map>
 
 class AppFactory : public PageFactory
 {
 public:
-    virtual PageBase* CreatePage(const char* name);
-private:
+    AppFactory();
+    virtual PageBase* CreatePage(const char* name) override;
+    virtual Maybe<std::string> GetNextPage(const std::string& name) override;
+    virtual Maybe<std::string> GetPreviousPage(const std::string& name) override;
+    virtual Maybe<std::string> GetHomePage(const std::string& name) override;
 
+private:
+    std::unordered_map<std::string, std::function<PageBase*()>> creators;
 };
 

@@ -1,5 +1,5 @@
 #include "AppPowerModel.h"
-
+#if defined(ARDUINO)
 using namespace Page;
 
 // P0.2  BUS       LOW[IN]   HIGH[OUT]
@@ -92,3 +92,4 @@ uint8_t AppPowerModel::AxpBatIsCharging() {
     M5.In_I2C.readRegister(AXP2101_ADDR, reg, data, 1, 100000L);
     return (data[0] >> 5) & 0b11;
 }
+#endif

@@ -1,4 +1,5 @@
 #include "AppMicModel.h"
+#if defined(ARDUINO)
 #include "M5Unified.h"
 
 using namespace Page;
@@ -24,3 +25,4 @@ void AppMicModel::MicBegin() {
     M5.Speaker.end();
     M5.Mic.begin();
 }
+#endif

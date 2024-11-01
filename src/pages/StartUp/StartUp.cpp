@@ -25,8 +25,9 @@ void StartUp::onViewDidLoad() {
 
 void StartUp::onViewWillAppear() {
     LV_LOG_USER(__func__);
-
+#if defined(ARDUINO)
     M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("poweron_2_5s"), ~0u, 1, 1);
+#endif
     timer = lv_timer_create(onTimerUpdate, 50, this);
     lv_anim_timeline_start(View.ui.anim_timeline);
 }
@@ -96,7 +97,9 @@ void StartUp::onEvent(lv_event_t* event) {
                 //                   LV_OBJ_FLAG_HIDDEN);
             }
         } else if (code == LV_EVENT_CLICKED) {
+#if defined(ARDUINO)            
             M5.Speaker.playWav((const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
+#endif
             instance->_Manager->Replace("Pages/HomeMenu");
         }
     }

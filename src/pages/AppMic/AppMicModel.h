@@ -1,6 +1,6 @@
 #ifndef __APPMIC_MODEL_H
 #define __APPMIC_MODEL_H
-
+#if defined(ARDUINO)
 #include "lvgl.h"
 #include "config.h"
 
@@ -22,4 +22,5 @@ class AppMicModel {
 
 }  // namespace Page
 
+#endif
 #endif
