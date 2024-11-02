@@ -103,13 +103,13 @@ void AppWiFi::onEvent(lv_event_t* event) {
         M5.Speaker.playWav( (const uint8_t*)ResourcePool::GetWav("select_0_5s"), ~0u, 1, 1);
         #endif
         if (obj == instance->View.ui.imgbtn_home) {
-            instance->_Manager->Replace("Pages/HomeMenu");
+            instance->_Manager->GotoHomePage();
         } 
         else if (obj == instance->View.ui.imgbtn_next) {
             #if defined(ARDUINO)
             USBSerial.print("AppWiFi -> AppCamera\r\n");
             #endif
-            instance->_Manager->Replace("Pages/AppCamera");
+            instance->_Manager->GotoNextPage();
         } 
         else if (obj == instance->View.ui.btn_top_center) {
             #if defined(ARDUINO)

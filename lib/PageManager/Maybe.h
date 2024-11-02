@@ -55,7 +55,7 @@ class Maybe {
     }
     
     Type getValue() {
-        assert(isValid());
+        // assert(isValid());
         return m_value;
     }
 

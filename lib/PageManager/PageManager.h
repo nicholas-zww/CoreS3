@@ -116,6 +116,9 @@ public:
     bool Push(const char* name, const PageBase::Stash_t* stash = nullptr);
     bool Pop();
     bool BackHome();
+    bool GotoNextPage();
+    bool GotoPrePage();
+    bool GotoHomePage();
     const char* GetPagePrevName();
 
     /* Global Animation */

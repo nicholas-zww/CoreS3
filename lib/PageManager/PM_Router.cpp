@@ -545,3 +545,33 @@ void PageManager::AnimDefaultInit(lv_anim_t* a)
     lv_anim_set_time(a, time);
     lv_anim_set_path_cb(a, _AnimState.Current.Path);
 }
+
+bool PageManager::GotoNextPage()
+{
+    Maybe<std::string> page = _Factory->GetNextPage(_PageCurrent->_Name);
+
+    if (page.isValid()) {
+        return Replace(page.getValue().c_str());
+    }
+    return false;
+}
+
+bool PageManager::GotoPrePage()
+{
+    Maybe<std::string> page = _Factory->GetPreviousPage(_PageCurrent->_Name);
+
+    if (page.isValid()) {
+        return Replace(page.getValue().c_str());
+    }
+    return false;
+}
+
+bool PageManager::GotoHomePage()
+{
+    Maybe<std::string> page = _Factory->GetHomePage(_PageCurrent->_Name);
+
+    if (page.isValid()) {
+        return Replace(page.getValue().c_str());
+    }
+    return false;
+}

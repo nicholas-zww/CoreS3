@@ -136,12 +136,12 @@ void AppMic::onEvent(lv_event_t* event) {
             USBSerial.print("AppMic root\r\n");
 #endif            
             if (obj == instance->View.ui.imgbtn_home) {
-                instance->_Manager->Replace("Pages/HomeMenu");
+                instance->_Manager->GotoHomePage();
             } else if (obj == instance->View.ui.imgbtn_next) {
 #if defined(ARDUINO)                
                 USBSerial.print("AppMic -> AppPower\r\n");
 #endif            
-                instance->_Manager->Replace("Pages/AppPower");
+                instance->_Manager->GotoNextPage();
             } else if (obj == instance->View.ui.btn_top_center) {
             }
         }

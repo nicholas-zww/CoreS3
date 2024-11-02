@@ -83,7 +83,7 @@ void AppRTC::onEvent(lv_event_t* event) {
 
     if (code == LV_EVENT_CLICKED) {
         if (obj == instance->View.ui.btn_list[2]) {
-            instance->_Manager->Replace("Pages/HomeMenu");
+            instance->_Manager->GotoHomePage();
             return;
         }
 #if defined(ARDUINO)
