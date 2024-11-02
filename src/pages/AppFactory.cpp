@@ -54,7 +54,7 @@ AppFactory::AppFactory() {
     REG_PAGE(HomeMenu);
     REG_PAGE(AppWiFi);
     REG_PAGE(AppCamera);
-    REG_PAGE(AppMic);
+    // REG_PAGE(AppMic);
     REG_PAGE(AppPower);
     REG_PAGE(AppIMU);
     REG_PAGE(AppSD);
@@ -63,16 +63,15 @@ AppFactory::AppFactory() {
     REG_PAGE(AppRTC);
 
     apps.clear();
-// #if defined(ARDUINO)
     apps.emplace_back(UserApp{"AppWiFi", &menu_wifi, Maybe<std::string>("AppRTC"), Maybe<std::string>("AppCamera"), Maybe<std::string>("HomeMenu")});
     apps.emplace_back(UserApp{"AppCamera", &menu_cam, Maybe<std::string>("AppWiFi"), Maybe<std::string>("AppPower"), Maybe<std::string>("HomeMenu")});
     // apps.emplace_back(UserApp{"AppMic", &menu_mic, Maybe<std::string>::Nothing(), Maybe<std::string>("HomeMenu"), Maybe<std::string>("HomeMenu")});
     apps.emplace_back(UserApp{"AppPower", &menu_power, Maybe<std::string>("AppCamera"), Maybe<std::string>("AppIMU"), Maybe<std::string>("HomeMenu")});
     apps.emplace_back(UserApp{"AppIMU", &menu_imu, Maybe<std::string>("AppPower"), Maybe<std::string>("AppSD"), Maybe<std::string>("HomeMenu")});
-    apps.emplace_back(UserApp{"AppSD", &menu_sd, Maybe<std::string>("AppIMU"), Maybe<std::string>("AppI2C"), Maybe<std::string>("HomeMenu")});
-    apps.emplace_back(UserApp{"AppI2C", &menu_i2c, Maybe<std::string>("AppSD"), Maybe<std::string>("AppRTC"), Maybe<std::string>("HomeMenu")});
-    apps.emplace_back(UserApp{"AppRTC", &menu_sys, Maybe<std::string>("AppI2C"), Maybe<std::string>("AppWiFi"), Maybe<std::string>("HomeMenu")});
-// #endif
+    apps.emplace_back(UserApp{"AppSD", &menu_sd, Maybe<std::string>("AppIMU"), Maybe<std::string>("AppTouch"), Maybe<std::string>("HomeMenu")});
+    apps.emplace_back(UserApp{"AppTouch", &menu_touch, Maybe<std::string>("AppSD"), Maybe<std::string>("AppI2C"), Maybe<std::string>("HomeMenu")});
+    apps.emplace_back(UserApp{"AppI2C", &menu_i2c, Maybe<std::string>("AppTouch"), Maybe<std::string>("AppWiFi"), Maybe<std::string>("HomeMenu")});
+    // apps.emplace_back(UserApp{"AppRTC", &menu_sys, Maybe<std::string>("AppI2C"), Maybe<std::string>("AppWiFi"), Maybe<std::string>("HomeMenu")});
 }
 
 PageBase* AppFactory::CreatePage(const char* name) {
