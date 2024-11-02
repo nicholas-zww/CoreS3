@@ -16,13 +16,18 @@ void HomeMenuView::Create(lv_obj_t* root) {
     ui.img_bg = lv_img_create(root);
     lv_img_set_src(ui.img_bg, ResourcePool::GetImage("background"));
 
+    lv_obj_t * panel = lv_obj_create(root);
+    lv_obj_set_size(panel, LV_HOR_RES, LV_VER_RES);
+    lv_obj_center(panel);
+    lv_obj_set_flex_flow(panel, LV_FLEX_FLOW_ROW_WRAP);
+
     for (size_t i = 0; i < apps.size(); i++)
     {
-        lv_obj_t* obj = lv_imgbtn_create(root);
+        lv_obj_t* obj = lv_imgbtn_create(panel);
         // ui.imgbtn_list[i] = lv_imgbtn_create(root);
         // lv_obj_remove_style_all(ui.imgbtn_list[i]);
         lv_obj_set_size(obj, 60, 73);
-        lv_obj_set_pos(obj, 10 + 80 * (i % 4), 75 + 80 * (i / 4));
+        // lv_obj_set_pos(obj, 10 + 80 * (i % 4), 75 + 80 * (i / 4));
 
 
         lv_imgbtn_set_src(obj, LV_IMGBTN_STATE_PRESSED, NULL, apps[i].icon, NULL);
