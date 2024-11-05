@@ -95,7 +95,11 @@ PageBase::State_t PageManager::StateLoadExecute(PageBase* base)
         PM_LOG_ERROR("Page(%s) root must be nullptr", base->_Name);
     }
 
-    lv_obj_t* root_obj = lv_obj_create(lv_scr_act());
+    lv_obj_t* root_obj;
+    if (m_root)
+        root_obj = lv_obj_create(m_root);
+    else
+        root_obj = lv_obj_create(lv_scr_act());
     
     lv_obj_clear_flag(root_obj, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_user_data(root_obj, base);

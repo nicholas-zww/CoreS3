@@ -102,7 +102,7 @@ public:
     } LoadAnimAttr_t;
 
 public:
-    PageManager(PageFactory* factory = nullptr);
+    PageManager(PageFactory* factory = nullptr, lv_obj_t* root = nullptr);
     ~PageManager();
 
     /* Loader */
@@ -193,6 +193,8 @@ private:
     }
 
 private:
+    lv_obj_t* m_root;
+
     /* Page factory */
     PageFactory* _Factory;
 

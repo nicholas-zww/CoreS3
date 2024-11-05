@@ -17,17 +17,11 @@ void HomeMenuView::Create(lv_obj_t* root) {
     lv_img_set_src(ui.img_bg, ResourcePool::GetImage("background"));
 
     lv_obj_t * panel = lv_obj_create(root);
-    lv_obj_set_size(panel, LV_HOR_RES, LV_VER_RES);
+    // lv_obj_set_size(panel, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_size(panel, LV_PCT(100), LV_PCT(100)); 
+    
     lv_obj_center(panel);
     lv_obj_set_flex_flow(panel, LV_FLEX_FLOW_ROW_WRAP);
-
-    lv_obj_t* objTop = lv_img_create(panel);
-    lv_obj_set_size(objTop, LV_HOR_RES - 30, 50);
-    lv_obj_center(objTop);
-    lv_img_set_src(objTop, ResourcePool::GetImage("app_camera_als"));
-    // lv_obj_t *spacer = lv_obj_create(panel);
-    // lv_obj_set_size(spacer, LV_SIZE_CONTENT, 0); // Set to a minimum height
-    // lv_obj_set_flex_grow(spacer, 1); // Make it grow to fill available space
 
     for (size_t i = 0; i < apps.size(); i++)
     {
@@ -36,7 +30,6 @@ void HomeMenuView::Create(lv_obj_t* root) {
         // lv_obj_remove_style_all(ui.imgbtn_list[i]);
         lv_obj_set_size(obj, 60, 73);
         // lv_obj_set_pos(obj, 10 + 80 * (i % 4), 75 + 80 * (i / 4));
-
 
         lv_imgbtn_set_src(obj, LV_IMGBTN_STATE_PRESSED, NULL, apps[i].icon, NULL);
         lv_imgbtn_set_src(obj, LV_IMGBTN_STATE_RELEASED, NULL, apps[i].icon, NULL);
@@ -62,7 +55,7 @@ void HomeMenuView::Create(lv_obj_t* root) {
     // lv_obj_set_style_radius(ui.imgbtn_list[8], 0, 0);
     // lv_obj_set_style_border_post(ui.imgbtn_list[8], true, 0);
 
-    ui.battery = BATTERY(root);
+    // ui.battery = BATTERY(root);
 }
 
 void HomeMenuView::Delete() {

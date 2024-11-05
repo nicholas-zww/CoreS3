@@ -31,11 +31,12 @@
   * @param  factory: Pointer to the page factory
   * @retval None
   */
-PageManager::PageManager(PageFactory* factory)
+PageManager::PageManager(PageFactory* factory, lv_obj_t* root)
     : _Factory(factory)
     , _PagePrev(nullptr)
     , _PageCurrent(nullptr)
     , _RootDefaultStyle(nullptr)
+    , m_root(root)
 {
     memset(&_AnimState, 0, sizeof(_AnimState));
 

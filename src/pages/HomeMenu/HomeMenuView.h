@@ -48,7 +48,7 @@ class HomeMenuView {
     
     struct {
         lv_obj_t* img_bg;
-        BATTERY battery;
+        // BATTERY battery;
         std::vector<uiButton> imgbtn_list;
     } ui;
 

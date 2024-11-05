@@ -83,6 +83,7 @@ void StartUp::onTimerUpdate(lv_timer_t* timer) {
 }
 
 void StartUp::onEvent(lv_event_t* event) {
+#if 0
     StartUp* instance = (StartUp*)lv_event_get_user_data(event);
     LV_ASSERT_NULL(instance);
 
@@ -103,4 +104,5 @@ void StartUp::onEvent(lv_event_t* event) {
             instance->_Manager->Replace("HomeMenu");
         }
     }
+#endif
 }
