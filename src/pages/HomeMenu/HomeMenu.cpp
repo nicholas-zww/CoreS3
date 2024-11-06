@@ -63,7 +63,7 @@ void HomeMenu::AttachEvent(lv_obj_t* obj, lv_event_code_t code) {
 
 void HomeMenu::Update() {
 #if defined(ARDUINO)
-    // View.ui.battery.UpdateValue(M5.Power.getBatteryLevel(), M5.Power.isCharging() == m5::Power_Class::is_charging_t::is_charging);
+    View.ui.battery.UpdateValue(M5.Power.getBatteryLevel(), M5.Power.isCharging() == m5::Power_Class::is_charging_t::is_charging);
 #else
     // View.ui.battery.UpdateValue(50);
 #endif
